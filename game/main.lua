@@ -27,6 +27,9 @@ function love.load()
 
     hitenemy = false
     dead = false
+    lives = 3
+
+    gameover = false
 
     level = 0
     levels = {}
@@ -46,7 +49,7 @@ function love.draw(screen)
             love.graphics.print('press any key', 150, 200)
         end
 
-        if paused and (not gamewin) and (not goalwin) and (not dead) then
+        if paused and (not gamewin) and (not goalwin) and (not dead) and (not gameover) then
             love.graphics.print('paused', 100, 120, 0, 3, 3)
         end
 
@@ -56,12 +59,16 @@ function love.draw(screen)
         end
 
         if paused and dead then
-            love.graphics.print('LOSE!', 100, 120, 0, 3, 3)
+            love.graphics.print('DEAD!', 100, 120, 0, 3, 3)
             love.graphics.print('press any key to continue', 100, 200)
         end
 
-        if (gamewin) then
+        if gamewin then
             love.graphics.print('GAME WIN!', 100, 120, 0, 3, 3)
+        end
+
+        if gameover then
+            love.graphics.print('GAME OVER!', 100, 120, 0, 3, 3)
         end
 
         -- draw Walls
@@ -70,6 +77,7 @@ function love.draw(screen)
         -- draw level
         if started and (not paused) then
             if levels[level] then
+                love.graphics.print('life x' .. lives, 350, 3)
                 love.graphics.print('level' .. level, 3, 3)
                 levels[level].draw()
             end
@@ -97,8 +105,14 @@ function love.update(dt)
             hitgoal = false
         end
         if hitenemy then
-            dead = true
-            paused = true
+            lives = lives - 1
+            if lives > 0 then
+                dead = true
+                paused = true
+            else
+                gameover = true
+                paused = true
+            end
             hitenemy = false
         end
     end

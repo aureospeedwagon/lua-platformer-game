@@ -13,18 +13,15 @@ function onCollision(a, b, coll)
     if (a:getUserData()[1] == "player" and b:getUserData()[1] == "collectable") or
         (b:getUserData()[1] == "player" and a:getUserData()[1] == "collectable") then
         local collectable
-    
+
         if a:getUserData()[1] == "collectable" then
             collectable = a
         else
             collectable = b
         end
 
-        
-        if collectable:getUserData()[2] == "coin" then
-            hitcoin = collectable
-        end
-    
+        hitCollectable = collectable
+
     end
 
 end

@@ -15,16 +15,19 @@ function love.load()
     require "objects/platform"
     require "objects/spike"
     require "objects/coin"
+    require "objects/extra-life"
     require "levels/levels"
     require "levels/level1"
     require "levels/level2"
     require "levels/level3"
     require "levels/level4"
+    require "levels/level5"
 
     time = 0
 
     coins = 0
-    hitcoin = nil
+    lives = 3
+    hitCollectable = nil
 
     gamewin = false
     goalwin = false
@@ -32,7 +35,7 @@ function love.load()
 
     hitenemy = false
     dead = false
-    lives = 3
+
 
     gameover = false
 
@@ -82,8 +85,17 @@ function love.draw(screen)
         -- draw level
         if started and (not paused) then
             if levels[level] then
-                love.graphics.print('life x' .. lives, 350, 3)
-                love.graphics.print('coins x' .. coins, 335, 18)
+
+                -- draw lives
+                love.graphics.rectangle("line", 355 + 0, 7 + 0, 10, 10, 3, 3)
+                love.graphics.rectangle("fill", 355 + 0, 7 + 4, 10, 2, 3, 3)
+                love.graphics.rectangle("fill", 355 + 4, 7 + 0, 2, 10, 3, 3)
+                love.graphics.print('x' .. lives, 370, 5)
+
+                -- draw coins (circle x,y measures from center)
+                love.graphics.circle("fill", 360, 27, 5)
+                love.graphics.print('x' .. coins, 370, 20)
+
                 love.graphics.print('level' .. level, 3, 3)
                 levels[level].draw()
             end
@@ -121,10 +133,16 @@ function love.update(dt)
             end
             hitenemy = false
         end
-        if hitcoin then
-            coins = coins + hitcoin:getUserData()[3]
-            hitcoin:getBody():setActive(false)
-            hitcoin = nil
+        if hitCollectable then
+
+            if hitCollectable:getUserData()[2] == "coin" then
+                coins = coins + hitCollectable:getUserData()[3]
+            elseif hitCollectable:getUserData()[2] == "extraLife" then
+                lives = lives + hitCollectable:getUserData()[3]
+            end
+
+            hitCollectable:getBody():setActive(false)
+            hitCollectable = nil
         end
     end
 end

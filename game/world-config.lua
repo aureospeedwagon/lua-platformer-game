@@ -1,4 +1,4 @@
 function worldConfig() 
-    JUMP_POWER = -75
-    SPEED = 75
+    JUMP_POWER = -20
+    SPEED = 50
 end

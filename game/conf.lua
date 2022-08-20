@@ -1,6 +1,6 @@
 function love.conf(t)
-	t.title = "Ball Jump Test"
-	t.author = "me"
+	t.title = "A Game"
+	t.author = "AureoSpeedwagon"
 	t.identity = "AAAAA"
 	t.console = true;
 	t.window.width = 400

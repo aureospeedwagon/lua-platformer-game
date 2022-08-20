@@ -1,7 +1,7 @@
 function love.load()
     require "world-config"
     worldConfig()
-    love.physics.setMeter(10) -- meter is 10 px/units
+    love.physics.setMeter(20) -- meter is 10 px/units
     world = love.physics.newWorld(0, 9.81 * love.physics.getMeter(), false)
 
     require "controls"
@@ -10,16 +10,21 @@ function love.load()
 
     require "objects/walls"
     loadWalls()
-    require "objects/character"
+    require "objects/player"
     require "objects/goal"
     require "objects/platform"
     require "objects/spike"
+    require "objects/coin"
     require "levels/levels"
     require "levels/level1"
     require "levels/level2"
     require "levels/level3"
+    require "levels/level4"
 
     time = 0
+
+    coins = 0
+    hitcoin = nil
 
     gamewin = false
     goalwin = false
@@ -53,12 +58,12 @@ function love.draw(screen)
             love.graphics.print('paused', 100, 120, 0, 3, 3)
         end
 
-        if paused and goalwin then
+        if goalwin then
             love.graphics.print('GOAL!', 100, 120, 0, 3, 3)
             love.graphics.print('press any key to continue', 100, 200)
         end
 
-        if paused and dead then
+        if dead then
             love.graphics.print('DEAD!', 100, 120, 0, 3, 3)
             love.graphics.print('press any key to continue', 100, 200)
         end
@@ -78,6 +83,7 @@ function love.draw(screen)
         if started and (not paused) then
             if levels[level] then
                 love.graphics.print('life x' .. lives, 350, 3)
+                love.graphics.print('coins x' .. coins, 335, 18)
                 love.graphics.print('level' .. level, 3, 3)
                 levels[level].draw()
             end
@@ -114,6 +120,11 @@ function love.update(dt)
                 paused = true
             end
             hitenemy = false
+        end
+        if hitcoin then
+            coins = coins + hitcoin:getUserData()[3]
+            hitcoin:getBody():setActive(false)
+            hitcoin = nil
         end
     end
 end

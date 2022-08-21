@@ -23,5 +23,8 @@ function spawnLevel4()
         levels[4].goal.body:destroy()
     end
 
+    levels[4].update = function(dt)
+    end
+
     return levels[4]
 end

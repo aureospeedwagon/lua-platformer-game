@@ -4,7 +4,8 @@ function spawnPlatform(x, y, tlx, tly, trx, try, brx, bry, blx, bly)
     local platformBody = love.physics.newBody(world, x, y, "static")
     local platformShape = love.physics.newPolygonShape(tlx, tly, trx, try, brx, bry, blx, bly)
     local platformFixture = love.physics.newFixture(platformBody, platformShape)
-    platformFixture:setUserData({'platform'})
+    platformFixture:setUserData({'platform', 'static'})
+    platformFixture:setFriction(0)
 
     platform.body = platformBody
     platform.shape = platformShape

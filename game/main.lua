@@ -12,7 +12,8 @@ function love.load()
     loadWalls()
     require "objects/player"
     require "objects/goal"
-    require "objects/platform"
+    require "objects/platforms/platform"
+    require "objects/platforms/moving-platform"
     require "objects/spike"
     require "objects/coin"
     require "objects/extra-life"
@@ -22,6 +23,7 @@ function love.load()
     require "levels/level3"
     require "levels/level4"
     require "levels/level5"
+    require "levels/level6"
 
     time = 0
 
@@ -107,6 +109,10 @@ function love.update(dt)
     if (not paused) then
         world:update(dt)
         time = time + 1 * dt
+
+        if levels[level] then
+            levels[level].update(dt)
+        end
 
         if hitgoal then
             level = level + 1

@@ -13,6 +13,8 @@ function spawnLevel1()
         levels[1].goal.body:destroy()
     end
 
-    
+    levels[1].update = function(dt)
+    end
+
     return levels[1]
 end

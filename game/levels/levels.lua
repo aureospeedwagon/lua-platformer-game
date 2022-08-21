@@ -4,6 +4,7 @@ function spawnLevel(n)
     elseif n == 3 then return spawnLevel3
     elseif n == 4 then return spawnLevel4
     elseif n == 5 then return spawnLevel5
+    elseif n == 6 then return spawnLevel6
     end
     return nil
 end

@@ -17,5 +17,8 @@ function spawnLevel2()
         levels[2].platform1.body:destroy()
     end
 
+    levels[2].update = function(dt)
+    end
+
     return levels[2]
 end

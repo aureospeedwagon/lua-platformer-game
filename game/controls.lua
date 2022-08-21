@@ -5,8 +5,8 @@ function love.gamepadpressed(joystick, button)
 
     if started == false then
         started = true
-        level = 1
-        spawnLevel1()
+        level = 6
+        spawnLevel6()
     elseif goalwin and paused then
         goalwin = false
         paused = false
@@ -27,8 +27,8 @@ function love.keypressed(key)
 
     if started == false then
         started = true
-        level = 1
-        spawnLevel1()
+        level = 6
+        spawnLevel6()
     elseif goalwin and paused then
         goalwin = false
         paused = false

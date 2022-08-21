@@ -1,7 +1,7 @@
 function spawnMovingPlatform(initX, initY, tlx, tly, trx, try, brx, bry, blx, bly, moveToX, moveToY, period)
     local platform = spawnPlatform(initX, initY, tlx, tly, trx, try, brx, bry, blx, bly)
     platform.fixture:setUserData({'platform', 'moving'})
-    platform.fixture:setFriction(1)
+    platform.fixture:setFriction(0.2)
     platform.body:setType('kinematic')
     platform.xdirection = 0
     platform.ydirection = 0

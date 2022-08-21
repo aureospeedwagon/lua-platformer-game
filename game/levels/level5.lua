@@ -18,6 +18,7 @@ function spawnLevel5()
     end
 
     levels[5].update = function(dt)
+        levels[5].player.update(dt)
     end
 
     return levels[5]

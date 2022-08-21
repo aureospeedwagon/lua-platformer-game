@@ -24,6 +24,8 @@ function spawnLevel3()
     end
 
     levels[3].update = function(dt)
+        levels[3].player.update(dt)
+
     end
 
     return levels[3]

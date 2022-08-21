@@ -1,4 +1,6 @@
 function love.load()
+    joystick = love.joystick.getJoysticks()[1]
+
     require "world-config"
     worldConfig()
     love.physics.setMeter(20) -- meter is 10 px/units
